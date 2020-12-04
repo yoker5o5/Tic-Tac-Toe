@@ -1,3 +1,5 @@
+#This is just fun project created by yoker5o5 to learn python
+
 import sys
 import os
 from tkinter import *
@@ -12,18 +14,18 @@ def main(*args):
     root.mainloop()
 
 def page1():
-    global P, B, igrac, prvi
+    #Loading page where game acually is
+    global P, B, igrac, prvi #Not sure if this is right way
     root.geometry("532x600")
     window = Frame(root,bg='lightblue')
     window.place(relx=0,rely=0,relheight=1,relwidth=1)
     B = [[0]*3]*3
     P = [[10]*3]*3
     igrac = 0
-    #photo = PhotoImage(file = r"O.png") 
     prvi = 0 if prvi == 1 else 1
     for i in range(3):
         B[i] = [0]*3
-        P[i] = [10]*3
+        P[i] = [10]*3 #Not sure why didnt work with just previus assigments
         for j in range(3):
             B[i][j] = Button(window, text =" ", command=lambda x=[i, j]: XO(x), height=10, width=24) #10 24
             B[i][j].grid(row=i, column=j)
@@ -53,22 +55,22 @@ def page1():
     L3 = Label(window4, text="Player 2\n{}".format(znak[1]), height=5, width=12)
     L3.grid(row=0, column=0)
 
-def XO(x):
+def XO(x): #What button do
+#   It puts X and O one by one
     global igrac
     i = x[0]
     j = x[1]
     if B[i][j]["text"] == " ":
-        if igrac == 0:
-            #photo = PhotoImage(file = r"X.png") 
+        if igrac == 0: 
             B[i][j].configure(text="X")
-            P[i][j] = 1
+            P[i][j] = 1 #Puts ID of X to Matrix P
             igrac = 1
         elif igrac == 1:
-            #photo = PhotoImage(file = r"X.png") 
             B[i][j].configure(text="O")
-            P[i][j] = 2
+            P[i][j] = 2 #Puts ID of O to Matrix P
             igrac = 0
 
+#   Here we sum all posible 3 in row
         zbir = [0]*8
         P2 = []
         for j in range(3):
@@ -81,6 +83,7 @@ def XO(x):
                 if (i+j) == 2:
                     zbir[7] += P[i][j]
 
+#   Now check if sum is 3 for X or 6 for O
         for i in range(8):
             if zbir[i] == 3:
                 page2("X")
@@ -91,7 +94,7 @@ def XO(x):
             elif 10 not in P2:
                 page2("No-one")
 
-def page2(winner):
+def page2(winner): #declare winner on other page
     window = Frame(root,bg='lightblue')
     window.place(relx=0,rely=0,relheight=1,relwidth=1)
     L = Label(window, text="Winner is: {}".format(winner), height=1, width=5)
