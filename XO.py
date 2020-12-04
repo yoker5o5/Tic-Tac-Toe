@@ -10,6 +10,7 @@ def main(*args):
     prvi = 1
     page1()
     print("Idemo")
+    print("Test2")
     root.mainloop()
 
 def page1():
