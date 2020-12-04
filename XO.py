@@ -9,6 +9,7 @@ def main(*args):
     root.title("X O")
     prvi = 1
     page1()
+    print("Idemo")
     root.mainloop()
 
 def page1():
