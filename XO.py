@@ -1,7 +1,6 @@
 #This is just fun project created by yoker5o5 to learn python
 
 import sys
-import os
 from tkinter import *
 
 class Player:
@@ -118,7 +117,7 @@ def main(*args):
     pl4 = Player("Davorin", "X")
     root = Tk()
     t = Tabla(root, (0,0), (pl1, pl2), "blue")
-    Tabla(root, (0,1), (pl3, pl4),"red")
+    Tabla(root, (0,1), (pl3, pl4), "red")
     #Tabla(root, (1,1), (pl3, pl4),"black")
     root.mainloop()
 
