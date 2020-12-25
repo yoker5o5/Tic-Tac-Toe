@@ -11,13 +11,13 @@ class Player:
         self.score = 0
 
 class Tabla:
-    def __init__(self, pro, pos, players, boja):
+    def __init__(self, players, boja):
+        self.pro = Toplevel()
         self.players = players
-        self.pro = pro
-        self.pos = pos
         self.boja = boja
         self.igra = self.players[0] if self.players[0].znak == "X" else self.players[1]
         self.ucitajpolja()
+        #self.pro.mainloop()
 
     def ucitajpolja(self):
         # for pl in self.players:
@@ -27,7 +27,7 @@ class Tabla:
         #         pl.table.append((self, pl.score))
         self.polja = []
         self.frame = Frame(self.pro, bg=self.boja)
-        self.frame.grid(row = self.pos[0], column=self.pos[1])
+        self.frame.grid(column=0, row = 0)
         for i in range(3):
             for j in range(3):
                 self.polja.append(Polje((i,j), " ", self))
@@ -109,17 +109,17 @@ class Polje:
         elif znak == "O":
             self.znakint = 2
 
-    
 def main(*args):
     pl1 = Player("Djordje", "X")
     pl2 = Player("Dragos", "O")
     pl3 = Player("Boris", "O")
     pl4 = Player("Davorin", "X")
     root = Tk()
-    t = Tabla(root, (0,0), (pl1, pl2), "blue")
-    Tabla(root, (0,1), (pl3, pl4), "red")
-    #Tabla(root, (1,1), (pl3, pl4),"black")
+    #root.attributes("-fullscreen", True)
+    Tabla((pl1, pl2), "blue")
+    Tabla((pl3, pl4), "red")
     root.mainloop()
+    #Tabla(root, (1,1), (pl3, pl4),"black")
 
 # def page1():
 #     #Loading page where game acually is
