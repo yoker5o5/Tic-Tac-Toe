@@ -2,6 +2,7 @@
 
 import sys
 from tkinter import *
+import random
 
 class Player:
     def __init__(self, name, znak):
@@ -46,7 +47,9 @@ class Tabla:
     
     def checkwinner(self):
         zbir = [0]*8
+        poljaint = []
         for polje in self.polja:
+            poljaint.append(polje.znakint)
             for j in range(2):
                 for i in range(3):
                     if polje.pos[j] == i:
@@ -61,15 +64,16 @@ class Tabla:
                 self.showwinner("X")
             elif zbir[i] == 6:
                 self.showwinner("O")
-            # elif 10 not in P2:
-            #     print("No-one")
+        if 10 not in poljaint:
+            self.showwinner("No-one")
     def showwinner(self, znak):
+        win = znak
         for pl in self.players:
             if pl.znak == znak:
                 win = pl.name
                 pl.score += 1
             pl.znak = "O" if pl.znak == "X" else "X"
-        window = Frame(self.frame,bg='lightblue')
+        window = Frame(self.pro,bg=self.boja)
         window.place(relx=0,rely=0,relheight=1,relwidth=1)
         L = Label(window, text="Winner is: {}".format(win), height=1, width=5)
         L.place(relx=0.1,rely=0.1,relheight=0.5,relwidth=0.8)
@@ -109,16 +113,55 @@ class Polje:
         elif znak == "O":
             self.znakint = 2
 
+
+class CreatingTable:
+    def __init__(self):
+        root = Tk()
+        root.geometry("500x500")
+        root.title("TIC-TAC-TOE")
+        window = Frame(root)
+        window.place(relx=0.2,rely=0.2,relheight=0.5,relwidth=0.8)
+        L = Label(window, text = "Unesi imena igrača:", font=("Century", 24))
+        L.grid(row=0, column=0)
+        E = Entry(window, width=10, bd=5, font=("Century", 24))
+        E.grid(row=1, column=0)
+        E2 = Entry(window, width=10, bd=5, font=("Century", 24))
+        E2.grid(row=2, column=0)
+        B = Button(window, text="Submit", command=lambda: self.createtable(E, E2), height=2, width=20)
+        B.grid(row=3, column=0)
+        root.mainloop()
+    def createtable(self, e, e2):
+        colors= ["blue", "red", "lightblue", "pink", "black"]
+        players = []
+        players.append(Player(e.get(), "X"))
+        players.append(Player(e2.get(), "O"))
+        Tabla(players, random.choice(colors))
+        e.delete(0, END)
+        e2.delete(0, END)
+
 def main(*args):
-    pl1 = Player("Djordje", "X")
-    pl2 = Player("Dragos", "O")
-    pl3 = Player("Boris", "O")
-    pl4 = Player("Davorin", "X")
-    root = Tk()
+    CreatingTable()
+    # pl1 = Player("Djordje", "X")
+    # pl2 = Player("Dragos", "O")
+    # pl3 = Player("Boris", "O")
+    # pl4 = Player("Davorin", "X")
+    # root = Tk()
+    # root.geometry("500x500")
+    # root.title("TIC-TAC-TOE")
+    # window = Frame(root)
+    # window.place(relx=0.2,rely=0.2,relheight=0.5,relwidth=0.8)
+    # L = Label(window, text = "Unesi imena igrača:", font=("Century", 24))
+    # L.grid(row=0, column=0)
+    # E = Entry(window, width=10, bd=5, font=("Century", 24))
+    # E.grid(row=1, column=0)
+    # E2 = Entry(window, width=10, bd=5, font=("Century", 24))
+    # E2.grid(row=2, column=0)
+    # B = Button(window, text="Submit", command=lambda: createtable(E, E2), height=2, width=20)
+    # B.grid(row=3, column=0)
     #root.attributes("-fullscreen", True)
-    Tabla((pl1, pl2), "blue")
-    Tabla((pl3, pl4), "red")
-    root.mainloop()
+    # Tabla((pl1, pl2), "blue")
+    # Tabla((pl3, pl4), "red")
+    # root.mainloop()
     #Tabla(root, (1,1), (pl3, pl4),"black")
 
 # def page1():
